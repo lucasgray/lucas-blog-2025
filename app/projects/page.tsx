@@ -13,7 +13,8 @@ export default function Projects() {
             Projects
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Hobby projects that I hack on occasionally. Some are dormant &mdash; not dead, just sleeping!
+            Hobby projects that I hack on occasionally. Some are dormant &mdash; not dead, just
+            sleeping!
           </p>
         </div>
         <div className="container py-12">

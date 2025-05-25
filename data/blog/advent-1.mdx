@@ -36,7 +36,7 @@ It might be worth a revisit now that I know a little more about what I'm doing, 
 ### Resolution...
 
 <video controls>
-    <source src="/static/videos/advent/scaling.mp4"/>
+  <source src="/static/videos/advent/scaling.mp4" />
 </video>
 
 The way this camera works (and I think is true for the unity shipped camera too, if it worked) - you don't have a fixed viewport size. Instead, you tell it what the optimal size in pixels is, and then the camera figures out how to scale depending on the viewport. In this way we can achieve any common resolution - 16:9, 16:10, 4:3, and any pixel density without any ill effects. It is important to set up UI canvases with this in mind, for example elements that should float towards the bottom, or top left/top right, etc.
@@ -50,10 +50,9 @@ The way this camera works (and I think is true for the unity shipped camera too,
 This wasn't quite so simple in practice! As it turned out, I wanted **TWO** units per cell in order to achieve the view that I needed. It's a little complicated to explain, but the pixel art is 32x32, destined for a potential overall ideal resolution of 640x360. If one unit was 32x32, the camera ended up zoomed in too far and we didn't see enough of the map. But if we doubled the ideal resolution, I was worried that it'd be too big for a small Switch or mobile screen. So I elected to make each grid cell 2x2 units, and the PPU (pixel-per-unit) 16, so all of our 32x32 art would expand over 2 units. Complicated but what can you do!
 
 <video controls>
-    <source src="/static/videos/advent/grid.mp4"/>
+  <source src="/static/videos/advent/grid.mp4" />
 </video>
 
 ## More to come!
 
 I knew if I could prove out enough of the tactics combat, I could write the rest easy enough. I was a little daunted by how I'd figure out how far a character can move, how to design the enemy AI, how to design the dialogue system (and how to trigger it), and how to write the tactics "sub-states" in a way that abstracts input (for when we build for console, switch, mobile!) away from the game logic. So I dove in!
-

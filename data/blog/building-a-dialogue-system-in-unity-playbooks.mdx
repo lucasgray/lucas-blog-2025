@@ -3,17 +3,17 @@ title: Building a Dialogue System in Unity - Playbooks
 date: '2022-07-23'
 tags: ['Advent of the Reaper', 'Unity', 'pixel', 'C sharp']
 draft: false
-summary:  Laying out the cutscene in a flexible format
+summary: Laying out the cutscene in a flexible format
 images: ['/static/images/advent/vn-preview.png']
 layout: PostSimple
 ---
 
-In order to author and display the cutscene, we need a way to lay out the cutscene events and dialogue text. After a brief trip over to thesaurus.com I settled on calling this a __Playbook__ - the idea of laying out what happens during a cutscene. Orchestrating not only the active character dialog, but anything else that could happen as well.
+In order to author and display the cutscene, we need a way to lay out the cutscene events and dialogue text. After a brief trip over to thesaurus.com I settled on calling this a **Playbook** - the idea of laying out what happens during a cutscene. Orchestrating not only the active character dialog, but anything else that could happen as well.
 
 I briefly considered...
 
-* Using GameObjects and the Unity properties sidebar, but text files are a much better fit.
-* [Ink](https://www.inklestudios.com/ink/), but it seemed a little too heavyweight for my use case. Looks like a great project, though.
+- Using GameObjects and the Unity properties sidebar, but text files are a much better fit.
+- [Ink](https://www.inklestudios.com/ink/), but it seemed a little too heavyweight for my use case. Looks like a great project, though.
 
 `YAML` is a nice clean and simple structured text language for humans to read and write. Here is an example of the yaml file format that contains the opening cutscene -
 
@@ -61,7 +61,7 @@ These are the main step "types" that I've implemented so far:
 ```
 
 <video controls>
-    <source src="/static/videos/advent/dialog.mov"/>
+  <source src="/static/videos/advent/dialog.mov" />
 </video>
 
 This is a piece of dialog. When the cutscene engine sees a `dialogSnippet` - it loads in the entire run of `dialogSnippet` steps and tells the visual novel engine to kickstart with the series of snippets. The visual novel engine is smart enough to appear and disappear character portraits depending on whether they need to swap out, and potentially break dialog snippets into several sub-snippets if the snippet is too long. Ideally, this shouldn't happen too much, but it gives us flexibility.
@@ -92,7 +92,7 @@ Character portraits map to characters on the screen so that we can highlight the
 ```
 
 <video controls>
-    <source src="/static/videos/advent/puppeteering.mov"/>
+  <source src="/static/videos/advent/puppeteering.mov" />
 </video>
 
 This step moves characters in the scene. Easy enough. It takes one or many character names and an ending [x, y] in game map space, then moves the character there. There is an optional speed component, and can be run synchronously or async. More on that part later.
@@ -121,12 +121,11 @@ Custom lets us do anything we want. Just define a method name and that method ca
 
 All steps are by default considered synchronous - subsequent steps will wait until the immediate step is finished. However, sometimes we would like to play with this concept - either allowing multiple steps to happen at once, or for steps to invoke and unspool for a certain amount of time, then start the next step before the current is completely finished.
 
-* `synchronous: true` - the step is completely synchronous
-* `synchronous: false` - the step will invoke then flow control will immediately pass to the next step
-* `synchUntilInMs: 1000` - the step will start, wait around for 1s, then start the next step
+- `synchronous: true` - the step is completely synchronous
+- `synchronous: false` - the step will invoke then flow control will immediately pass to the next step
+- `synchUntilInMs: 1000` - the step will start, wait around for 1s, then start the next step
 
-<hr/>
-# Show me some code!
+<hr /># Show me some code!
 
 Sure! Here is the important part of deserializing the yaml using [YamlDotNet](https://github.com/aaubry/YamlDotNet):
 
@@ -309,7 +308,7 @@ As you can tell, it's pretty scriptey, with some hardcoded elements (also, the b
 Combine this custom script with a few of the other steps and we've got a pretty powerful setup.
 
 <video controls>
-    <source src="/static/videos/advent/yumeruattack.mov"/>
+  <source src="/static/videos/advent/yumeruattack.mov" />
 </video>
 
 ```yaml
@@ -346,4 +345,4 @@ Combine this custom script with a few of the other steps and we've got a pretty 
 
 ## Conclusion
 
-Between the `yaml` files and the state machine abstraction, I have a nice and solid way to handle dialog. It should be able to grow and adapt well to future requirements without rework.  Tech debt remains fairly low - although there are a few slightly messy pieces that may need refactored over time. I'm happy with my approach and think this should serve me well going forward.
+Between the `yaml` files and the state machine abstraction, I have a nice and solid way to handle dialog. It should be able to grow and adapt well to future requirements without rework. Tech debt remains fairly low - although there are a few slightly messy pieces that may need refactored over time. I'm happy with my approach and think this should serve me well going forward.

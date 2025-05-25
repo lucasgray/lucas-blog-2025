@@ -14,9 +14,17 @@ Advent is a Pixel Tactical RPG, which means it's very important to us that the g
 
 I had implemented a rudimentary map combat system and animated my character sprites. Though the character idle animations started out synchronized, over time they'd slowly drift apart, every character marching to their own drum. Especially as a big fan of rhythm games, this insubordination could not stand!
 
-For reference, watch this video of __Fire Emblem: The Sacred Stones__ and notice how the animations "tick" in lock-step with each other -
+For reference, watch this video of **Fire Emblem: The Sacred Stones** and notice how the animations "tick" in lock-step with each other -
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Kfv_r9bPA-M?start=1605" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/Kfv_r9bPA-M?start=1605"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
 
 The problem was that the characters walked to new positions, then we re-played their idle animations. The characters walked at a different and variable cadence depending on the length of their journey (and, sometimes I did vary the speed). With some details left out, the move code looks like this:
 
@@ -43,7 +51,7 @@ animator.Play(lastDirection == Direction.West ? "IdleLeft" : "IdleRight");
 This resulted in the chaos I mentioned earlier, with every character clearly disrespecting the rules of the TRPG. What absolute insolence. Although, it looked like they were having fun. Who could really blame them.
 
 <video controls>
-    <source src="/static/videos/advent/boppin.mov"/>
+  <source src="/static/videos/advent/boppin.mov" />
 </video>
 
 Fortunately, the fix for this is relatively easy!
@@ -59,7 +67,7 @@ Perfect. Now we just need a metronome. The steps boil down to -
 
 Here is my metronome, with one of the animations (Idle is the first to run automatically in the state machine). It just slowly ticks through the animation steps, no Sprite component is attached to display. As mentioned earlier, it's important that all idle animations are the same length - all of mine are on one second loops. Also note that it is easy to forget the "Always Animate" flag.
 
-We're nearly there! All that's left is to make sure __every time__ we play the idle animation, we pass in the metronome % progress. Make sure you grab the `normalizedTime` from the object right before you need it - I struggled for a minute because I was passing the __value__ of the `normalizedTime` then waiting around for coroutines, which lead to stale values of `normalizedTime` - the fix is to pass around the __reference__ so that the `normalizedTime` can be plucked out after coroutines run.
+We're nearly there! All that's left is to make sure **every time** we play the idle animation, we pass in the metronome % progress. Make sure you grab the `normalizedTime` from the object right before you need it - I struggled for a minute because I was passing the **value** of the `normalizedTime` then waiting around for coroutines, which lead to stale values of `normalizedTime` - the fix is to pass around the **reference** so that the `normalizedTime` can be plucked out after coroutines run.
 
 ```csharp
 var metronome = GameObject.Find("Metronome").GetComponent<Animator>(); // or even better, make this a field in your MonoBehavior
@@ -67,10 +75,9 @@ animator.Play(lastDirection == Direction.West ? "IdleLeft" : "IdleRight", -1, me
 ```
 
 <video controls>
-    <source src="/static/videos/advent/synchronized.mov"/>
+  <source src="/static/videos/advent/synchronized.mov" />
 </video>
 
 Better than any marching band!
 
-Credit to [this unity forum thread](https://forum.unity.com/threads/sync-animations-on-multiple-objects.430114/) specifically __bennichols23__ for providing the solution.
-
+Credit to [this unity forum thread](https://forum.unity.com/threads/sync-animations-on-multiple-objects.430114/) specifically **bennichols23** for providing the solution.

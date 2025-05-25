@@ -3,7 +3,7 @@ title: Building a Dialogue System in Unity - Triggers
 date: '2022-07-13'
 tags: ['Advent of the Reaper', 'Unity', 'pixel', 'C sharp']
 draft: false
-summary:  Creating a system to interject in game progression to show cutscenes
+summary: Creating a system to interject in game progression to show cutscenes
 images: ['/static/images/advent/vn-preview.png']
 layout: PostSimple
 ---
@@ -12,11 +12,11 @@ First order of business in creating a dialog system is having a methodology to t
 
 There are some other potential "triggers" too -
 
-* When an enemy is attacked the first time
-* At the start of the [nth] turn (player or enemy)
-* When a character is defeated
-* When a character moves into a certain cell on the game board
-* Others?? Possibly!
+- When an enemy is attacked the first time
+- At the start of the [nth] turn (player or enemy)
+- When a character is defeated
+- When a character moves into a certain cell on the game board
+- Others?? Possibly!
 
 It is clear that we need to be relatively dynamic and expressive here. If you read my previous article on game states you know that we've designed a state machine with one major holder of state - `GameState`. As the turns progress, different states are activated - a way of determining which "mode" the game is in at a given time, combined with `GameState` which keeps track of the board pieces, who's turn it is (and how many turns in we are).
 
@@ -84,6 +84,5 @@ public override DialogScene[] DialogScenes => new DialogScene[]
 ```
 
 The trigger can look at the `GameState` and make decisions based on the state of that object. The only other piece is a pointer to the `.yml` file that contains the "Playbook" containing the instructions for the dialog scene. That'll be one of the upcoming articles!
-
 
 Now that this is in place, we have a flexible way of interjecting into the game loop and presenting adhoc dialog scenes driven from `yml` files.

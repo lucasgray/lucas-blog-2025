@@ -13,8 +13,8 @@ In a [previous blog post](/blog/advent-2) I explained a tad about the system I h
 
 In general, there are two main use cases for pathfinding in a tactical RPG -
 
-* Show all possible paths available to the character - based on the character's move speed and terrain modifiers __(Dijkstra's)__
-* Determine the shortest possible path from one tile to another __(A*)__
+- Show all possible paths available to the character - based on the character's move speed and terrain modifiers **(Dijkstra's)**
+- Determine the shortest possible path from one tile to another **(A\*)**
 
 For the first scenario, we spider out towards all cardinal directions from the starting cell - North, South, East, West - putting every cell into a `Queue<Cell>` with an associated movement cost. Then, we continue to the first in the Queue, spidering N/S/E/W the same way, and throwing those cells on the back of the queue with a new movement cost - the movement cost of the previous cell plus the current cell.
 
@@ -230,9 +230,9 @@ public class DijkstraSearch
 There's still some low-hanging fruit here in terms of efficiency, but it works pretty well as long as move tiles are
 less than ~20 or so. Over 20 cells you can detect a slight hiccup. I should probably put this behind a Coroutine/Task or maybe even give the job system a shot to offload it onto another thread. But all of that seems like overkill right now.
 
-## A* Implementation
+## A\* Implementation
 
-On the other hand, sometimes you know exactly where you wanna go. In that case, A* is a similar algorithm but applies a heuristic to determine which cells to unfurl in which order. The heuristic is up to you, but for a 2d top down RPG of course the heuristic can simply be euclidean distance between the two cells. If a cell is closer as the crow flies to the destination, we keep moving that direction first. This drastically cuts down on the amount of cells and paths to spider through in order to find a path from one cell to the other.
+On the other hand, sometimes you know exactly where you wanna go. In that case, A\* is a similar algorithm but applies a heuristic to determine which cells to unfurl in which order. The heuristic is up to you, but for a 2d top down RPG of course the heuristic can simply be euclidean distance between the two cells. If a cell is closer as the crow flies to the destination, we keep moving that direction first. This drastically cuts down on the amount of cells and paths to spider through in order to find a path from one cell to the other.
 
 Right now I use this for two main use cases - "Puppeteering" steps during Visual Novel cutscenes, and to determine what actions the AI should take (the enemy AI player uses pathing distance to attackable characters as part of its calculations).
 

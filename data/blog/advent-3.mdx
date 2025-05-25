@@ -6,6 +6,7 @@ summary: Designing a "State" abstraction using Unity primitives
 tags: ['Advent of the Reaper', 'Unity', 'pixel', 'C sharp']
 layout: PostSimple
 ---
+
 ## State of the Adventinalia
 
 At this point in my Unity learning path, I feel decently comfortable designing small games. The VR arcade, Eddie's tour. Until now I haven't needed anything too complex. I had to take a step back with the main Advent battle scene.
@@ -29,7 +30,7 @@ I decided to introduce the idea of `State`. There is an overall `StateMachine` t
 
 Every `State` is also a `MonoBehavior` on a `GameObject` - essentially a bunch of singletons with global scope, but I can handle the global state drawback by encapsulation and access control levers.
 
-Let's look at `StateMachine` first.  `StateMachine` is in charge of keeping a reference all the game states, and providing utilities to determine which is the active state, etc. Here is an example utility method -
+Let's look at `StateMachine` first. `StateMachine` is in charge of keeping a reference all the game states, and providing utilities to determine which is the active state, etc. Here is an example utility method -
 
 ```csharp
 public State PriorityActiveState()

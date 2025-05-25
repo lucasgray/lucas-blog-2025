@@ -13,7 +13,8 @@ Action and strategy is all well and good, but how do you advance the story?! The
 ![dialogue example](/static/images/advent/dialog-with-sigh-bouncing.png)
 
 ## Requirements
-<hr/>
+
+<hr />
 
 ### Display two characters talking to each other
 
@@ -23,7 +24,7 @@ At it's simplest, our dialog system is a back and forth between two characters. 
 
 Once the user is done reading, we need to advance the dialog to the next snippet, maybe changing characters.
 
-### Determine __when__ to display a dialog cutscene
+### Determine **when** to display a dialog cutscene
 
 We need a system that keeps an eye on the game state and knows that something needs to happen. Once that system determines that it is time to show dialog, it needs to pause the rest of the action and cut in line to show the dialog. When the player is done reading, the trigger system needs to re-start the process that was originally preempted.
 
@@ -35,17 +36,17 @@ The dialog shouldn't live in code, for two main reasons. It'd be a huge pain in 
 
 Not all dialog scenes will be as simple as talky-talky-done. One common action will be to "puppet" the characters around, have them attack and potentially show battle sequences, move the camera around, apply shaders, show tutorials... the list goes on. Some of these will be very common, some will be completely one-off.
 
-<hr/>
+<hr />
 ## Off we go!
 
-I've actually [written a workflow system driven from text before](https://github.com/lucasgray/gru-docs/tree/master/src/markdown), and this __feels__ very similar. It was used to orchestrate rolling up analytics based on large data sets. We churned over half a billion rows a day!
+I've actually [written a workflow system driven from text before](https://github.com/lucasgray/gru-docs/tree/master/src/markdown), and this **feels** very similar. It was used to orchestrate rolling up analytics based on large data sets. We churned over half a billion rows a day!
 
 To summarize, it feels like there are two main systems:
 
-* Trigger system that can handle periodically determining whether to halt everything and interrupt the flow of the game to display dialog. The trigger has two main components:
-  * What the trigger is
-  * What event should be triggered
-* Dialog system that picks up based on the event described above, reads from a file, and proceeds through the steps outlined in the file.
+- Trigger system that can handle periodically determining whether to halt everything and interrupt the flow of the game to display dialog. The trigger has two main components:
+  - What the trigger is
+  - What event should be triggered
+- Dialog system that picks up based on the event described above, reads from a file, and proceeds through the steps outlined in the file.
 
 ## Next Steps
 
